@@ -9,12 +9,11 @@ class TextEncoder(nn.Module):
     def __init__(self, output_dim=768):
         super(TextEncoder, self).__init__()
         self.bert = BertModel.from_pretrained("bert-base-uncased")
-        self.seq_proj = nn.Linear(self.bert.config.hidden_size, output_dim)
-        self.proj = nn.Linear(self.bert.config.hidden_size, output_dim)  # optional projection
+        # self.seq_proj = nn.Linear(self.bert.config.hidden_size, output_dim)
 
     def forward(self, input_ids, attention_mask):
         outputs = self.bert(input_ids=input_ids, attention_mask=attention_mask)
-        seq_emb = self.seq_proj(outputs.last_hidden_state)  # project each token
+        seq_emb = outputs.last_hidden_state  
         return seq_emb
 
 # Helper function to tokenize
