@@ -19,7 +19,7 @@ class TextEncoder(nn.Module):
 
 # Helper function to tokenize
 def prepare_text(questions, device="cpu", max_length=32):
-    enc = tokenizer(questions, padding=True, truncation=True, max_length=max_length, return_tensors="pt")
+    enc = tokenizer(questions, padding="max_length", truncation=True, max_length=max_length, return_tensors="pt")
     return enc["input_ids"].to(device), enc["attention_mask"].to(device)
 
 """ 
